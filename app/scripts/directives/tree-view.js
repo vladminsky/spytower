@@ -5,43 +5,22 @@ angular
     .directive(
         'treeView',
         [
+            '$location',
+            '$http',
             'jquery',
-            function ($) {
+            '_',
+            function ($location, $http, $, _) {
                 return {
                     template: '<div></div>',
                     restrict: 'E',
-                    link: function postLink(scope, element, attr1s) {
+                    link: function postLink(scope, element, attrs) {
 
-                        var items = [
-                            {
-                                id: "2",
-                                parent: "#",
-                                text: "Second",
-                                state: {
-                                    opened: true,
-                                    selected: true
-                                }
-                            },
-                            {
-                                id: '21',
-                                parent: '2',
-                                text: 'Report 21R'
-                            },
-                            {
-                                id: '31',
-                                parent: '2',
-                                text: 'Report 31R'
-                            },
-                            {
-                                id: '212',
-                                parent: '2',
-                                text: 'Report 212R'
-                            }
-                        ];
+                        var $input = $('<input type="text" value="" style="width:100%;" />');
 
                         var $el = $(element);
+
                         $el.jstree({
-                            plugins: ['wholerow', 'search', 'state'],
+                            plugins: ['wholerow', 'search'],
                             search: {
                                 show_only_matches: true,
                                 fuzzy: false
@@ -52,27 +31,64 @@ angular
                                     icons: false
                                 },
                                 data: function (node, callback) {
-                                    setTimeout(function() {
 
-                                        callback.call(this, items);
+                                    $http({method: 'GET', url: '/api/reports'})
+                                        .success(function(reportItems) {
 
-                                    }, 1000);
+                                            var treeData = [
+                                                {
+                                                    id: '-1',
+                                                    text: 'Saved Reports',
+                                                    parent: '#',
+                                                    isLeaf: false,
+                                                    state: {
+                                                        opened: true,
+                                                        selected: true
+                                                    }
+                                                }
+                                            ];
+
+                                            var savedReports = _(reportItems).map(function(rawReport) {
+                                                return {
+                                                    id: rawReport._id,
+                                                    text: rawReport._id,
+                                                    parent: '-1',
+                                                    isLeaf: true,
+                                                    a_attr: {
+                                                        'href': '/report/' + rawReport._id
+                                                    }
+                                                };
+                                            });
+
+                                            var items = treeData.concat(savedReports);
+
+                                            callback.call(this, items);
+
+                                            $el.prepend($input);
+                                        })
+                                        .error(function(data) {
+
+                                            $el.html('Error during loading...');
+
+                                        });
                                 }
                             }
                         });
 
-                        var $input = $('<input type="text" value="" style="width:100%;" />');
-                        $el.prepend($input);
+                        $input.keyup(_.throttle(function () {
+                                $el
+                                    .jstree(true)
+                                    .search($input.val());
+                            },
+                            250)
+                        );
 
-                        var to = false;
-                        $input.keyup(function () {
-                            if (to) {
-                                clearTimeout(to);
+                        $el.bind('select_node.jstree', function (e, data) {
+                            var orig = data.node.original;
+                            if (orig.isLeaf) {
+                                $location.path(orig.a_attr.href);
+                                scope.$apply();
                             }
-                            to = setTimeout(function () {
-                                var v = $input.val();
-                                $el.jstree(true).search(v);
-                            }, 250);
                         });
                     }
                 };

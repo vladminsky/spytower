@@ -2,22 +2,17 @@
 
 angular
     .module('spytowerApp')
-    .controller(
-        'NavbarCtrl',
-        [
-            '$scope',
-            '$location',
-            function ($scope, $location) {
-                $scope.menuItems = [
-                    {
-                        'title': 'Reports',
-                        'link': '/'
-                    }
-                ];
+    .controller('NavbarCtrl', function ($scope, $location, $stateParams) {
 
-                $scope.isActive = function (route) {
-                    return route === $location.path();
-                };
+        $scope.menuItems = [
+            {
+                'title': $stateParams.id,
+                'link': '/'
             }
-        ]
-    );
+        ];
+
+        $scope.isActive = function (route) {
+            return route === $location.path();
+        };
+    }
+);
