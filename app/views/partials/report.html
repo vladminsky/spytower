@@ -1,161 +1,252 @@
-<div ui-view class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main" ng-controller="NavbarCtrl">
+<div ui-view class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main" ng-controller="ReportCtrl">
 
-    <h1 class="page-header">Dashboard {{menuItems[0].title}}</h1>
+<style>
+.visual-column {
+    width: 50%;
+}
 
-    <div class="row placeholders">
-        <div class="col-xs-6 col-sm-3 placeholder">
-            <img data-src="holder.js/200x200/auto/sky" class="img-responsive" alt="200x200"
-                 src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyMDAiIGhlaWdodD0iMjAwIj48cmVjdCB3aWR0aD0iMjAwIiBoZWlnaHQ9IjIwMCIgZmlsbD0iIzBEOEZEQiI+PC9yZWN0Pjx0ZXh0IHRleHQtYW5jaG9yPSJtaWRkbGUiIHg9IjEwMCIgeT0iMTAwIiBzdHlsZT0iZmlsbDojZmZmO2ZvbnQtd2VpZ2h0OmJvbGQ7Zm9udC1zaXplOjEzcHg7Zm9udC1mYW1pbHk6QXJpYWwsSGVsdmV0aWNhLHNhbnMtc2VyaWY7ZG9taW5hbnQtYmFzZWxpbmU6Y2VudHJhbCI+MjAweDIwMDwvdGV4dD48L3N2Zz4=">
-            <h4>Label</h4>
-            <span class="text-muted">Something else</span>
-        </div>
-        <div class="col-xs-6 col-sm-3 placeholder">
-            <img data-src="holder.js/200x200/auto/vine" class="img-responsive" alt="200x200"
-                 src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyMDAiIGhlaWdodD0iMjAwIj48cmVjdCB3aWR0aD0iMjAwIiBoZWlnaHQ9IjIwMCIgZmlsbD0iIzM5REJBQyI+PC9yZWN0Pjx0ZXh0IHRleHQtYW5jaG9yPSJtaWRkbGUiIHg9IjEwMCIgeT0iMTAwIiBzdHlsZT0iZmlsbDojMUUyOTJDO2ZvbnQtd2VpZ2h0OmJvbGQ7Zm9udC1zaXplOjEzcHg7Zm9udC1mYW1pbHk6QXJpYWwsSGVsdmV0aWNhLHNhbnMtc2VyaWY7ZG9taW5hbnQtYmFzZWxpbmU6Y2VudHJhbCI+MjAweDIwMDwvdGV4dD48L3N2Zz4=">
-            <h4>Label</h4>
-            <span class="text-muted">Something else</span>
-        </div>
-        <div class="col-xs-6 col-sm-3 placeholder">
-            <img data-src="holder.js/200x200/auto/sky" class="img-responsive" alt="200x200"
-                 src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyMDAiIGhlaWdodD0iMjAwIj48cmVjdCB3aWR0aD0iMjAwIiBoZWlnaHQ9IjIwMCIgZmlsbD0iIzBEOEZEQiI+PC9yZWN0Pjx0ZXh0IHRleHQtYW5jaG9yPSJtaWRkbGUiIHg9IjEwMCIgeT0iMTAwIiBzdHlsZT0iZmlsbDojZmZmO2ZvbnQtd2VpZ2h0OmJvbGQ7Zm9udC1zaXplOjEzcHg7Zm9udC1mYW1pbHk6QXJpYWwsSGVsdmV0aWNhLHNhbnMtc2VyaWY7ZG9taW5hbnQtYmFzZWxpbmU6Y2VudHJhbCI+MjAweDIwMDwvdGV4dD48L3N2Zz4=">
-            <h4>Label</h4>
-            <span class="text-muted">Something else</span>
-        </div>
-        <div class="col-xs-6 col-sm-3 placeholder">
-            <img data-src="holder.js/200x200/auto/vine" class="img-responsive" alt="200x200"
-                 src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyMDAiIGhlaWdodD0iMjAwIj48cmVjdCB3aWR0aD0iMjAwIiBoZWlnaHQ9IjIwMCIgZmlsbD0iIzM5REJBQyI+PC9yZWN0Pjx0ZXh0IHRleHQtYW5jaG9yPSJtaWRkbGUiIHg9IjEwMCIgeT0iMTAwIiBzdHlsZT0iZmlsbDojMUUyOTJDO2ZvbnQtd2VpZ2h0OmJvbGQ7Zm9udC1zaXplOjEzcHg7Zm9udC1mYW1pbHk6QXJpYWwsSGVsdmV0aWNhLHNhbnMtc2VyaWY7ZG9taW5hbnQtYmFzZWxpbmU6Y2VudHJhbCI+MjAweDIwMDwvdGV4dD48L3N2Zz4=">
-            <h4>Label</h4>
-            <span class="text-muted">Something else</span>
-        </div>
+.report-list td {
+}
+
+.report-list th {
+    white-space: nowrap;
+}
+
+.report-list td:nth-child(1) {
+    width: 10%;
+    white-space: nowrap;
+}
+
+.visual-column .chart-value {
+    background-color: #ff9a60;
+    padding: 0;
+    height: 24px;
+}
+
+.visual-column .chart-value-holder {
+    font-weight: bold;
+    background-color: rgba(209, 209, 209, 0.36);
+    width: 100%;
+    padding: 0;
+    height: 24px;
+}
+
+.axis path {
+    fill: none;
+    stroke: none;
+}
+
+.axis line {
+    padding-bottom: 20px;
+    stroke: #414141;
+    opacity: 0.5;
+    shape-rendering: crispEdges;
+}
+
+.data-dot {
+    fill: none;
+    opacity: 0.5;
+    stroke: #333;
+    stroke-width: 1.2px;
+}
+
+.time-line-data-point {
+    opacity: 0.8;
+}
+
+.scatter-plot .data-dot {
+    fill: #333;
+    opacity: 0.8;
+    stroke: #333;
+    stroke-width: 1px;
+}
+
+.data-dot-selected {
+    fill: #333;
+    opacity: 0.4;
+    stroke: #333;
+    stroke-width: 1.2px;
+}
+
+rect.projection {
+    font-weight: bold;
+    fill: #ededed;
+}
+
+text.projection {
+    font-family: helvetica;
+    font-size: 12px;
+    font-weight: bold;
+    background-color: red;
+    fill: #333;
+}
+
+line.projection {
+    stroke: #c9c9c9;
+    stroke-width: 0.5;
+    stroke-opacity: 0.7;
+}
+
+.axis text {
+    font-family: helvetica;
+    font-size: 12px;
+    fill: #7c7c86;
+}
+
+#tooltip {
+    position: absolute;
+    display: none;
+    text-wrap: none;
+    padding-right: 10px;
+}
+
+.scatter-plot .data-dot.highlight {
+    opacity: 0.5;
+    fill: yellow;
+}
+
+.user-row {
+    cursor: pointer;
+}
+
+.user-list {
+    margin-bottom: 50px;
+}
+
+.time-line-data-point {
+    opacity: 1;
+    stroke: steelblue;
+    fill: #fff;
+}
+
+.user-data-point {
+    opacity: 0.8;
+    stroke: steelblue;
+    fill: white;
+    cursor: pointer;
+}
+
+.user-play-point {
+    opacity: 0.8;
+    stroke: #0e0b3f;
+    fill: white;
+    cursor: pointer;
+}
+
+.user-data-point.highlight {
+    fill: yellow;
+}
+
+.time-line .axis path,
+.time-line .axis line {
+    fill: none;
+    stroke: #7c7c86;
+    shape-rendering: crispEdges;
+}
+
+.user-circle {
+    opacity: 0.8;
+}
+
+.history-hidden {
+    display: none;
+    -webkit-transition: opacity 0.5s ease-in-out;
+    -moz-transition: opactiy 0.5s ease-in-out;
+    -ms-transition: opacity 0.5s ease-in-out;
+    -o-transition: opacity 0.5s ease-in-out;
+    transition: opacity 0.5s ease-in-out;
+}
+
+.dont-make-me-think {
+    opacity: 0.1;
+    -webkit-transition: opacity 0.5s ease-in-out;
+    -moz-transition: opactiy 0.5s ease-in-out;
+    -ms-transition: opacity 0.5s ease-in-out;
+    -o-transition: opacity 0.5s ease-in-out;
+    transition: opacity 0.5s ease-in-out;
+}
+
+.legend {
+    font-family: helvetica;
+    font-size: 12px;
+    fill: #7c7c86;
+    cursor: pointer;
+}
+
+.time-line .x.axis path {
+    display: none;
+}
+
+.time-line .line {
+    fill: none;
+    stroke: steelblue;
+    stroke-width: 1.5px;
+}
+
+.baseline {
+    stroke: #ff0b0b;
+    stroke-width: 1px;
+}
+
+.baseline-label {
+    font-family: helvetica;
+    font-size: 12px;
+    opacity: 0.8;
+    font-weight: bold;
+    fill: #ff0b0b;
+}
+
+.x-baseline {
+    stroke: #d8cebf;
+    opacity: 0.5;
+    cursor: pointer;
+    stroke-width: 5px;
+}
+
+.x-baseline:hover {
+    opacity: 1;
+    stroke: #ff9e2d;
+    -webkit-transition: opacity 0.5s ease-in-out;
+    -moz-transition: opactiy 0.5s ease-in-out;
+    -ms-transition: opacity 0.5s ease-in-out;
+    -o-transition: opacity 0.5s ease-in-out;
+    transition: opacity 0.5s ease-in-out;
+}
+
+.x-baseline-label {
+    display: none;
+    font-family: helvetica;
+    font-size: 12px;
+    font-weight: bold;
+}
+
+.label-visible {
+    display: block;
+}
+
+.baseline.happy {
+    stroke: #2acb29;
+}
+
+.baseline-label.happy {
+    fill: #2acb29;
+}
+
+.baseline.neitral {
+    stroke: #1736cb;
+}
+
+.baseline-label.neitral {
+    fill: #1736cb;
+}
+</style>
+
+    <div ng-hide="ready">Loading...</div>
+
+    <div ng-show="ready">
+        <h2 class="sub-header">{{report.title}}</h2>
+
+        <div id="content" style="width:800px;"></div>
     </div>
 
-    <h2 class="sub-header">Section title</h2>
-
-    <div class="table-responsive">
-        <table class="table table-striped">
-            <thead>
-            <tr>
-                <th>#</th>
-                <th>Header</th>
-                <th>Header</th>
-                <th>Header</th>
-                <th>Header</th>
-            </tr>
-            </thead>
-            <tbody>
-            <tr>
-                <td>1,001</td>
-                <td>Lorem</td>
-                <td>ipsum</td>
-                <td>dolor</td>
-                <td>sit</td>
-            </tr>
-            <tr>
-                <td>1,002</td>
-                <td>amet</td>
-                <td>consectetur</td>
-                <td>adipiscing</td>
-                <td>elit</td>
-            </tr>
-            <tr>
-                <td>1,003</td>
-                <td>Integer</td>
-                <td>nec</td>
-                <td>odio</td>
-                <td>Praesent</td>
-            </tr>
-            <tr>
-                <td>1,003</td>
-                <td>libero</td>
-                <td>Sed</td>
-                <td>cursus</td>
-                <td>ante</td>
-            </tr>
-            <tr>
-                <td>1,004</td>
-                <td>dapibus</td>
-                <td>diam</td>
-                <td>Sed</td>
-                <td>nisi</td>
-            </tr>
-            <tr>
-                <td>1,005</td>
-                <td>Nulla</td>
-                <td>quis</td>
-                <td>sem</td>
-                <td>at</td>
-            </tr>
-            <tr>
-                <td>1,006</td>
-                <td>nibh</td>
-                <td>elementum</td>
-                <td>imperdiet</td>
-                <td>Duis</td>
-            </tr>
-            <tr>
-                <td>1,007</td>
-                <td>sagittis</td>
-                <td>ipsum</td>
-                <td>Praesent</td>
-                <td>mauris</td>
-            </tr>
-            <tr>
-                <td>1,008</td>
-                <td>Fusce</td>
-                <td>nec</td>
-                <td>tellus</td>
-                <td>sed</td>
-            </tr>
-            <tr>
-                <td>1,009</td>
-                <td>augue</td>
-                <td>semper</td>
-                <td>porta</td>
-                <td>Mauris</td>
-            </tr>
-            <tr>
-                <td>1,010</td>
-                <td>massa</td>
-                <td>Vestibulum</td>
-                <td>lacinia</td>
-                <td>arcu</td>
-            </tr>
-            <tr>
-                <td>1,011</td>
-                <td>eget</td>
-                <td>nulla</td>
-                <td>Class</td>
-                <td>aptent</td>
-            </tr>
-            <tr>
-                <td>1,012</td>
-                <td>taciti</td>
-                <td>sociosqu</td>
-                <td>ad</td>
-                <td>litora</td>
-            </tr>
-            <tr>
-                <td>1,013</td>
-                <td>torquent</td>
-                <td>per</td>
-                <td>conubia</td>
-                <td>nostra</td>
-            </tr>
-            <tr>
-                <td>1,014</td>
-                <td>per</td>
-                <td>inceptos</td>
-                <td>himenaeos</td>
-                <td>Curabitur</td>
-            </tr>
-            <tr>
-                <td>1,015</td>
-                <td>sodales</td>
-                <td>ligula</td>
-                <td>in</td>
-                <td>libero</td>
-            </tr>
-            </tbody>
-        </table>
-    </div>
 </div>

@@ -3,6 +3,5 @@
 angular
     .module('spytowerApp')
     .factory('jquery', function () {
-
-        return jQuery;
+        return jQuery.noConflict(true);
     });

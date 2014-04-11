@@ -7,6 +7,7 @@
     "es5-shim": "~2.1.0",
     "jquery": "~1.11.0",
     "underscore": "*",
+    "d3": "3.4.5",
     "angular-underscore-module": "*",
     "jstree": "*",
     "bootstrap": "~3.0.3",
